@@ -188,10 +188,10 @@ def read_file(img_path=None,
                 if obj.select_one("name").text in class_names:
                     label = class_names.index(obj.select_one("name").text)
                     labels.append(label)
-                    xmin = int(obj.select_one("xmin").text)/zoom_r[0]
-                    xmax = int(obj.select_one("xmax").text)/zoom_r[0]
-                    ymin = int(obj.select_one("ymin").text)/zoom_r[1]
-                    ymax = int(obj.select_one("ymax").text)/zoom_r[1]
+                    xmin = int(float(obj.select_one("xmin").text))/zoom_r[0]
+                    xmax = int(float(obj.select_one("xmax").text))/zoom_r[0]
+                    ymin = int(float(obj.select_one("ymin").text))/zoom_r[1]
+                    ymax = int(float(obj.select_one("ymax").text))/zoom_r[1]
 
                     bbs.append(BoundingBox(x1=xmin,
                                            y1=ymin,
