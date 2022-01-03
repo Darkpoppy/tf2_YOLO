@@ -78,19 +78,19 @@ Most importantly, the repo is written in Python and Tensorflow, so you can easil
 ## 1. Create YOLO class
 
 ***YOLOv1***
-```
+```python3
 from tf2_YOLO import yolov1_5
 yolo = yolov1_5.Yolo(input_shape, class_names)
 ```
 
 ***YOLOv2***
-```
+```python3
 from tf2_YOLO import yolov2
 yolo = yolov2.Yolo(input_shape, class_names)
 ```
 
 ***YOLOv3***
-```
+```python3
 from tf2_YOLO import yolov3
 yolo = yolov3.Yolo(input_shape, class_names)
 ```
@@ -103,7 +103,7 @@ yolo = yolov3.Yolo(input_shape, class_names)
 ## 2. Read file
 
 ***Read as array(read into RAM)***
-```
+```python3
 img, label = yolo.read_file_to_dataset(
     img_path, 
     label_path)
@@ -111,7 +111,7 @@ img, label = yolo.read_file_to_dataset(
 or
 
 ***Read as tf.Sequence***
-```
+```python3
 seq = yolo.read_file_to_sequence(
     img_path, 
     label_path,
@@ -141,7 +141,7 @@ A tuple: (img: ndarray, label_list: list), label_list contains the label of all 
 ## 3. Visualize one of images with its annotation
 
 ***YOLOv1、YOLOv2***
-```
+```python3
 yolo.vis_img(img[0], label[0])
 ```
 
@@ -155,7 +155,7 @@ yolo.vis_img(img[0], label[2][0])
 ## 4. Get anchor boxes for yolov2 and yolov3
 
 ***YOLOv2***
-```
+```python3
 from utils.kmeans import kmeans, iou_dist
 import numpy as np
 
@@ -169,7 +169,7 @@ anchors = np.sort(anchors, axis=0)[::-1]
 ```
 
 ***YOLOv3***
-```
+```python3
 from utils.kmeans import kmeans, iou_dist
 import numpy as np
 
@@ -187,14 +187,14 @@ anchors = np.sort(anchors, axis=0)[::-1]
 ## 5. Create model
 
 ***YOLOv1***
-```
+```python3
 model = yolo.create_model(bbox_num)
 ```
 
 - **bbox_num**: An integer, the number of bounding boxes.
 
 ***YOLOv2、YOLOv3***
-```
+```python3
 model = yolo.create_model(anchors)
 ```
 
@@ -205,7 +205,7 @@ model = yolo.create_model(anchors)
 ## 6. Compile model
 
 ***YOLOv1、YOLOv2***
-```
+```python3
 from utils.tools import get_class_weight
 from tensorflow.keras.optimizers import Adam
 
@@ -226,7 +226,7 @@ yolo.model.compile(optimizer=Adam(lr=1e-4),
 ```
 
 ***YOLOv3***
-```
+```python3
 from utils.tools import get_class_weight
 from tensorflow.keras.optimizers import Adam
 
@@ -255,7 +255,7 @@ yolo.model.compile(optimizer=Adam(lr=1e-4),
 ## 7. Train model
 
 ***Train with dataset***
-```
+```python3
 yolo.model.fit(
     data,
     label,
@@ -263,7 +263,7 @@ yolo.model.fit(
 ```
 
 ***Train with tf.Sequence***
-```
+```python3
 yolo.model.fit(
     seq,
     epochs)
@@ -272,7 +272,7 @@ yolo.model.fit(
 ## 8. Predict and Evaluate
 
 ***YOLOv1、YOLOv2***
-```
+```python3
 from utils.measurement import create_score_mat
 
 prediction = yolo.model.predict(data)
@@ -292,7 +292,7 @@ print(create_score_mat)
 ```
 
 ***YOLOv3***
-```
+```python3
 from utils.measurement import create_score_mat
 
 prediction = yolo.model.predict(data)
@@ -324,7 +324,7 @@ print(create_score_mat)
 ## 9. Get PR curve and mAP
 
 ***YOLOv1、YOLOv2***
-```
+```python3
 from utils.measurement import PR_func
 
 pr = PR_func(
@@ -341,7 +341,7 @@ pr.get_map(mode="voc2012")
 ```
 
 ***YOLOv3***
-```
+```python3
 from utils.measurement import PR_func
 
 pr = PR_func(
